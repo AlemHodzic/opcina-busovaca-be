@@ -9,7 +9,8 @@ const postSchema = mongoose.Schema({
     createdAt: {
         type: Date,
         default: new Date()
-    }
+    },
+    isHeader: Number
 })
 
 const PostMessage = mongoose.model('PostMessage', postSchema)

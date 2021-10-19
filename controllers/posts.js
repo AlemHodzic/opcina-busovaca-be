@@ -3,9 +3,69 @@ import mongoose from 'mongoose';
 import PostMessage from '../models/postMessage.js';
 
 
-export const getPosts = async (req, res) => {
+export const getPosts = async (req, res, next) => {
+    let {page, size} = req.query;
+    if(!page){
+        page = 1;
+    }
+    if(!size){
+        size = 3;
+    }
+    const limit = parseInt(size)
+    const skip = (page-1)*size
     try {
-        const postMessages = await PostMessage.find()
+        const postMessages = await PostMessage.find().sort({ _id: -1 }).limit(limit).skip(skip)
+        res.status(200).json(postMessages);
+      
+    } catch (error) {
+        res.status(404).json({message: error.message})
+    }
+}
+
+export const getAllPosts = async (req, res) => {
+    let {page, size} = req.query;
+    if(!page){
+        page = 1;
+    }
+    if(!size){
+        size = 6;
+    }
+    const limit = parseInt(size)
+    const skip = (page-1)*size
+    try {
+        const postMessages = await PostMessage.find().sort({ _id: -1 }).limit(limit).skip(skip)
+        res.status(200).json(postMessages);
+      
+    } catch (error) {
+        res.status(404).json({message: error.message})
+    }
+}
+
+export const getPostByName = async (req, res) => {
+    const {title: title} = req.params
+    let {page, size} = req.query;
+    if(!page){
+        page = 1;
+    }
+    if(!size){
+        size = 6;
+    }
+    const limit = parseInt(size)
+    const skip = (page-1)*size
+    try {
+        const postMessages = await PostMessage.find( { title : { '$regex' : title, '$options' : 'i' } } ).sort({ _id: -1 }).limit(limit).skip(skip)
+        res.status(200).json(postMessages);
+      
+    } catch (error) {
+        res.status(404).json({message: error.message})
+    }
+}
+
+
+export const getHeadingPosts = async (req, res) => {
+    let {page, size} = req.query;
+    try {
+        const postMessages = await PostMessage.find({isHeader: 1}).sort({ _id: -1}).limit(3)
         res.status(200).json(postMessages);
     } catch (error) {
         res.status(404).json({message: error.message})
