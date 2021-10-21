@@ -84,7 +84,10 @@ export const getPostId = async (req, res) => {
 
 export const createPost = async (req, res) => {
     const post = req.body
-    const newPost =  new PostMessage(post)
+    let newPost =  new PostMessage(post)
+    const options = {year: 'numeric', month: 'long', day: 'numeric' };
+    const today = new Date();
+    newPost.createdAt = today.toLocaleDateString('bs', options)
     try {
         await newPost.save();
         res.status(201).json(newPost)

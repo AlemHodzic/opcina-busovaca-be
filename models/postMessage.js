@@ -6,10 +6,7 @@ const postSchema = mongoose.Schema({
     body: String,
     tags: [String],
     selectedFile: String,
-    createdAt: {
-        type: Date,
-        default: new Date()
-    },
+    createdAt: String,
     isHeader: Number
 })
 
