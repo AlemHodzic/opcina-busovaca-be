@@ -1,1 +1,1 @@
-GET http://localhost:5000/posts/nasl/
+GET http://localhost:5000/servisi/getServisi?page=1
