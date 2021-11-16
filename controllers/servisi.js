@@ -8,7 +8,7 @@ export const getServisi = async (req, res, next) => {
         page = 1;
     }
     if(!size){
-        size = 3;
+        size = 5;
     }
     const limit = parseInt(size)
     const skip = (page-1)*size
@@ -23,7 +23,7 @@ export const getServisi = async (req, res, next) => {
 export const createServis = async (req, res) => {
     const post = req.body
     let newPost =  new ServisModel(post)
-    const options = {year: 'numeric', month: 'long', day: 'numeric' };
+    const options = {year: 'numeric', month: 'numeric', day: 'numeric' };
     const today = new Date();
     newPost.createdAt = today.toLocaleDateString('bs', options)
     try {
@@ -32,4 +32,54 @@ export const createServis = async (req, res) => {
     } catch (error) {
         res.status(409).json({message: error.message})
     }
+}
+
+export const getServis = async (req, res) => {
+    const {id: _id} = req.params
+    try {
+        const post = await ServisModel.findById(_id);
+        res.status(200).json(post);
+    } catch (error) {
+        res.status(404).json({ message: error.message });
+    }
+}
+
+export const getServisByName = async (req, res) => {
+    const {title: title} = req.params
+    let {page, size} = req.query;
+    if(!page){
+        page = 1;
+    }
+    if(!size){
+        size = 6;
+    }
+    const limit = parseInt(size)
+    const skip = (page-1)*size
+    try {
+        const postMessages = await ServisModel.find( { title : { '$regex' : title, '$options' : 'i' } } ).sort({ _id: -1 }).limit(limit).skip(skip)
+        res.status(200).json(postMessages);
+      
+    } catch (error) {
+        res.status(404).json({message: error.message})
+    }
+}
+
+export const deleteServis = async (req, res) => {
+    const { id: _id } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send(`No post with id: ${_id}`);
+
+    await ServisModel.findByIdAndRemove(_id);
+
+    res.json({ message: "Post deleted successfully." });
+}
+
+export const updateServis = async (req, res) => {
+    const {id: _id} = req.params
+    const post = req.body
+    if(!mongoose.Types.ObjectId.isValid(_id)){
+        return res.status(404).send('No post with that ID');
+    }
+    const updatedPost = await ServisModel.findByIdAndUpdate(_id, post, {new: true})
+    res.json(updatedPost);
 }
