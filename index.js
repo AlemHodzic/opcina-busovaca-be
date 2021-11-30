@@ -5,7 +5,7 @@ import cors from 'cors'
 import postRoutes from './routes/posts.js'
 import servisiRoutes from './routes/servisi.js'
 import photoRoutes from './routes/photos.js'
-
+import oglasRoutes from './routes/oglasi.js'
 const app = express();
 
 
@@ -16,6 +16,7 @@ app.use(cors());
 app.use('/posts', postRoutes);
 app.use('/servisi', servisiRoutes)
 app.use('/photos', photoRoutes)
+app.use('/oglasi', oglasRoutes)
 const CONNECTION_URL = 'mongodb+srv://alem_hodzic:alem_hodzic123@cluster0.txwd6.mongodb.net/<dbname>'
 const PORT = process.env.PORT || 5000
 

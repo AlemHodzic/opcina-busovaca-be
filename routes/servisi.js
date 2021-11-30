@@ -5,7 +5,7 @@ const router = express.Router();
 router.get('/getServisi', getServisi)
 router.post('/', createServis)
 router.get('/getServisi/:id', getServis)
-router.get('/getServis/:title', getServisByName),
-router.delete('/:id', deleteServis),
+router.get('/getServis/:title', getServisByName)
+router.delete('/:id', deleteServis)
 router.patch('/:id', updateServis)
 export default router
