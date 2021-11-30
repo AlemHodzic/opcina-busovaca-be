@@ -1,11 +1,20 @@
 import mongoose from "mongoose";
 
+const reqString = {
+    type: String,
+    required: true
+}
+const imageObject = {
+    name: String,
+    file: String
+}
+
 const oglasSchema = mongoose.Schema({
-    selectedFile: String,
-    title: String,
+    selectedFile: [imageObject],
+    title: reqString,
     createdAt: String,
     body: String,
-    type: String
+    type: reqString
 })
 
 const Oglas = mongoose.model('Oglas', oglasSchema)
