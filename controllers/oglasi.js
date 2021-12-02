@@ -21,6 +21,27 @@ export const getOglasi = async (req, res, next) => {
     }
 }
 
+
+export const getNabavke = async (req, res) => {
+    let {page, size} = req.query;
+    if(!page){
+        page = 1;
+    }
+    if(!size){
+        size = 8;
+    }
+    const limit = parseInt(size)
+    const skip = (page-1)*size
+    try {
+        const postMessages = await Oglas.find({type: 'nabavke'}).sort({ _id: -1}).limit(limit).skip(skip)
+        res.status(200).json(postMessages);
+    } catch (error) {
+        res.status(404).json({message: error.message})
+    }
+}
+
+
+
 export const createOglas = async (req, res) => {
     const post = req.body
     let newPost =  new Oglas(post)
