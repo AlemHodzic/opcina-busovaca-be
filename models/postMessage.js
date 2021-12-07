@@ -13,8 +13,8 @@ const postSchema = mongoose.Schema({
     body: String,
     bodyHR: String,
     tags: [String],
-    displayFile: String,
-    selectedFile: [String],
+    displayFile: [String],
+    selectedFile: String,
     createdAt: String,
     isHeader: Number,
     link: String
