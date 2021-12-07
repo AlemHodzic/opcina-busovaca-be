@@ -1,8 +1,15 @@
 import mongoose from "mongoose";
-
+const reqString = {
+    type: String,
+    required: true
+}
 const servisSchema = mongoose.Schema({
-    title: String,
+    title: reqString,   
+    titleHR: reqString,
     body: String,
+    bodyHR: String,
+ 
+
     createdAt: String
 })
 
