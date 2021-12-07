@@ -23,17 +23,9 @@ export const getPosts = async (req, res, next) => {
 }
 
 export const getPostsWithoutImgs = async (req, res) => {
-    let {page, size} = req.query;
-    if(!page){
-        page = 1;
-    }
-    if(!size){
-        size = 6;
-    }
-    const limit = parseInt(size)
     const skip = (page-1)*size
     try {
-        const postMessages = await PostMessage.find({}, 'title titleHR').sort({ _id: -1 }).limit(limit).skip(skip)
+        const postMessages = await PostMessage.find({}, 'title titleHR subTitle subTitleHR displayFile createdAt').sort({ _id: -1 }).limit(3).skip(skip)
         res.status(200).json(postMessages);
       
     } catch (error) {
@@ -104,7 +96,7 @@ export const getPostId = async (req, res) => {
 export const createPost = async (req, res) => {
     const post = req.body
     let newPost =  new PostMessage(post)
-    const options = {year: 'numeric', month: 'long', day: 'numeric' };
+    const options = {year: 'numeric', month: 'numeric', day: 'numeric' };
     const today = new Date();
     newPost.createdAt = today.toLocaleDateString('bs', options)
     try {
