@@ -33,7 +33,7 @@ export const getPostsWithoutImgs = async (req, res) => {
     const limit = parseInt(size)
     const skip = (page-1)*size
     try {
-        const postMessages = await PostMessage.find({}, 'title titleHR subTitle subTitleHR displayFile createdAt').sort({ _id: -1 }).limit(3).skip(skip)
+        const postMessages = await PostMessage.find({}, 'title titleHR subTitle subTitleHR selectedFile createdAt').sort({ _id: -1 }).limit(3).skip(skip)
         res.status(200).json(postMessages);
       
     } catch (error) {
