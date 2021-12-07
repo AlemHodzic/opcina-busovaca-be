@@ -23,6 +23,14 @@ export const getPosts = async (req, res, next) => {
 }
 
 export const getPostsWithoutImgs = async (req, res) => {
+    let {page, size} = req.query;
+    if(!page){
+        page = 1;
+    }
+    if(!size){
+        size = 3;
+    }
+    const limit = parseInt(size)
     const skip = (page-1)*size
     try {
         const postMessages = await PostMessage.find({}, 'title titleHR subTitle subTitleHR displayFile createdAt').sort({ _id: -1 }).limit(3).skip(skip)
