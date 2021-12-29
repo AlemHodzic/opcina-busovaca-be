@@ -5,6 +5,11 @@ const reqString = {
     required: true
 }
 
+const attachment = {
+    name: String,
+    file: String
+}
+
 const postSchema = mongoose.Schema({
     title: reqString,
     titleHR: reqString,
@@ -17,7 +22,9 @@ const postSchema = mongoose.Schema({
     selectedFile: String,
     createdAt: String,
     isHeader: Number,
-    link: String
+    link: String,
+    oglasLink: String,
+    attachedItems: [attachment],
 })
 
 const PostMessage = mongoose.model('PostMessage', postSchema)
