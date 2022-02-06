@@ -45,9 +45,9 @@ export const getNabavke = async (req, res) => {
 export const createOglas = async (req, res) => {
     const post = req.body
     let newPost =  new Oglas(post)
-    const options = {year: 'numeric', month: 'numeric', day: 'numeric' };
+    /*const options = {year: 'numeric', month: 'numeric', day: 'numeric' };
     const today = new Date();
-    newPost.createdAt = today.toLocaleDateString('bs', options)
+    newPost.createdAt = today.toLocaleDateString('bs', options)*/
     try {
         await newPost.save();
         res.status(201).json(newPost)
