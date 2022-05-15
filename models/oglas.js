@@ -11,6 +11,7 @@ const imageObject = {
 
 const oglasSchema = mongoose.Schema({
     selectedFile: [imageObject],
+    displayFile: [String],
     title: reqString,
     titleHR: reqString,
     createdAt: String,
