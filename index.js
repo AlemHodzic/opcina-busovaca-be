@@ -31,6 +31,9 @@ app.use(function (req, res, next) {
     // Pass to next layer of middleware
     next();
 });
+var cors = require('cors');
+app.use(cors());
+app.use(cors({origin: 'https://www.opcina-busovaca.com/'}));
 app.use('/posts', postRoutes);
 app.use('/servisi', servisiRoutes)
 app.use('/photos', photoRoutes)
